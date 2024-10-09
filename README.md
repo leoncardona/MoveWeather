@@ -1,5 +1,5 @@
-# Fast Weather - Weather app
-Shows weather, wind and waves forecast for the next 16 days for the desired location.
+# Fast Weather
+Weather website. Shows weather, wind and waves forecast for the next 16 days for the desired location.
 
 ## 🌐 Web
 https://fast-weather-one.vercel.app/
