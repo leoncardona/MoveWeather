@@ -1,31 +1,33 @@
 import useWeather from "@/hooks/useWeather";
-import {
-  getColorForTemperature,
-  getColorForWaveHeight,
-  getColorForWindSpeed,
-} from "@/lib/utils";
+import { getColorForPaddleSurf, getColorForHiking } from "@/lib/utils";
 import { useEffect } from "react";
 
 const modes = {
-  temperature: {
-    endpoint: "temperature_2m_max",
-    colorFunction: getColorForTemperature,
-    unit: "°C",
+  paddleSurf: {
+    colorFunction: getColorForPaddleSurf,
+    unit: "score",
+    getDescription: (value) => {
+      if (value >= 8) return "Excellent";
+      if (value >= 6) return "Good";
+      if (value >= 4) return "Fair";
+      if (value >= 2) return "Poor";
+      return "Avoid";
+    },
   },
-  wind: {
-    endpoint: "windspeed_10m_max",
-    colorFunction: getColorForWindSpeed,
-    unit: "m/s",
-  },
-  waves: {
-    endpoint: "wave_height_max",
-    colorFunction: getColorForWaveHeight,
-    unit: "m",
-    api: "marine",
+  hiking: {
+    colorFunction: getColorForHiking,
+    unit: "score",
+    getDescription: (value) => {
+      if (value >= 8) return "Perfect Day";
+      if (value >= 6) return "Good Conditions";
+      if (value >= 4) return "Acceptable";
+      if (value >= 2) return "Challenging";
+      return "Not Recommended";
+    },
   },
 };
 
-const Calendar = ({ mode = "temperature", coordinates }) => {
+const Calendar = ({ mode, coordinates }) => {
   const { weatherData, getWeatherData } = useWeather();
 
   const today = new Date();
@@ -35,15 +37,16 @@ const Calendar = ({ mode = "temperature", coordinates }) => {
     getWeatherData(coordinates);
   }, [getWeatherData, coordinates]);
 
-  const isWeatherDataUnavailable =
-    !weatherData ||
-    !weatherData[mode] ||
-    weatherData[mode].every((value) => value === null);
+  const isDataAvailable =
+    weatherData &&
+    weatherData[mode] &&
+    weatherData[mode].length > 0 &&
+    !weatherData[mode].every((value) => value === null);
 
-  if (isWeatherDataUnavailable) {
+  if (!isDataAvailable) {
     return (
       <div className="h-[400px] flex items-center justify-center">
-        <span>No information available</span>
+        <span>No {mode} information available</span>
       </div>
     );
   }
@@ -60,7 +63,10 @@ const Calendar = ({ mode = "temperature", coordinates }) => {
 
   days.forEach((date, index) => {
     const dayOfWeek = (startDayOfWeek + index) % 7;
-    currentWeek[dayOfWeek] = { date, value: weatherData[mode][index] };
+    currentWeek[dayOfWeek] = {
+      date,
+      value: index < weatherData[mode].length ? weatherData[mode][index] : null,
+    };
 
     if (dayOfWeek === 6 || index === days.length - 1) {
       weeks.push(currentWeek);
@@ -94,14 +100,14 @@ const Calendar = ({ mode = "temperature", coordinates }) => {
                   >
                     {day.date.getDate()}
                     <span className="text-xs absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#131313] text-white p-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
-                      {day.value} {modes[mode].unit}
+                      {day.value}/10 {modes[mode].getDescription(day.value)}
                     </span>
                   </td>
                 ) : (
                   <td key={dayIndex} className="p-5 text-center">
                     {/* Empty cell */}
                   </td>
-                ),
+                )
               )}
             </tr>
           ))}

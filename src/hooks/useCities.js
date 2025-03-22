@@ -8,10 +8,16 @@ const useCities = () => {
   const getCityData = useCallback((cityName) => {
     if (!cityName) return;
 
+    const removeAccents = (str) => {
+      return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    };
+
     try {
       const filteredCities = citiesData
         .filter((city) =>
-          city.name.toLowerCase().includes(cityName.toLowerCase())
+          removeAccents(city.name.toLowerCase()).includes(
+            removeAccents(cityName.toLowerCase())
+          )
         )
         .map((city) => {
           const cityName = city.name;

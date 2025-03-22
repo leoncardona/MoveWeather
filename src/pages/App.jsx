@@ -10,7 +10,7 @@ const App = () => {
     latitude: null,
     longitude: null,
   });
-  const [currentMode, setCurrentMode] = useState(CalendarModes.temperature);
+  const [currentMode, setCurrentMode] = useState(CalendarModes.paddleSurf);
   const [loading, setLoading] = useState(true);
 
   const { getStoredValue } = useLocalStorage();

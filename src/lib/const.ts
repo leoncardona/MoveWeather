@@ -1,5 +1,4 @@
 export enum CalendarModes {
-  temperature = "temperature",
-  wind = "wind",
-  waves = "waves",
+  paddleSurf = "paddleSurf",
+  hiking = "hiking",
 }
