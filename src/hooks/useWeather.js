@@ -5,6 +5,7 @@ const useWeatherData = () => {
     paddleSurf: [],
     hiking: [],
   });
+  const [loading, setLoading] = useState(false);
 
   const calculatePaddleSurfScores = useCallback((tempData, windData, waveData) => {
     if (!tempData || !windData || !waveData) {
@@ -104,6 +105,7 @@ const useWeatherData = () => {
   const getWeatherData = useCallback(
     async (coordinates) => {
       if (coordinates.latitude && coordinates.longitude) {
+        setLoading(true);
         try {
           const weatherResponse = await fetch(
             `https://api.open-meteo.com/v1/forecast?latitude=${coordinates.latitude}&longitude=${coordinates.longitude}&daily=temperature_2m_max,windspeed_10m_max,precipitation_sum&timezone=auto&forecast_days=16`
@@ -129,6 +131,8 @@ const useWeatherData = () => {
           });
         } catch (error) {
           console.error("Error fetching weather data:", error);
+        } finally {
+          setLoading(false);
         }
       }
     },
@@ -137,6 +141,7 @@ const useWeatherData = () => {
 
   return {
     weatherData,
+    loading,
     getWeatherData,
   };
 };

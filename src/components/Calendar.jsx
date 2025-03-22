@@ -28,7 +28,7 @@ const modes = {
 };
 
 const Calendar = ({ mode, coordinates }) => {
-  const { weatherData, getWeatherData } = useWeather();
+  const { weatherData, loading, getWeatherData } = useWeather();
 
   const today = new Date();
   const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
@@ -36,6 +36,14 @@ const Calendar = ({ mode, coordinates }) => {
   useEffect(() => {
     getWeatherData(coordinates);
   }, [getWeatherData, coordinates]);
+
+  if (loading) {
+    return (
+      <div className="h-[400px] flex items-center justify-center">
+        <span>Loading...</span>
+      </div>
+    );
+  }
 
   const isDataAvailable =
     weatherData &&

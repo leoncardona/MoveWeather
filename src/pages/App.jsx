@@ -36,8 +36,8 @@ const App = () => {
         <>
           {!coordinates.latitude && !coordinates.longitude && (
             <div className="flex flex-col items-center gap-4">
-              <img src="/logo.png" alt="logo" width={250} />
-              <h1 className="opacity-85 text-lg">Weather made simple.</h1>
+              <img src="/logo.png" alt="logo" width={200} />
+              <h1 className="opacity-85 text-lg">Activity aimed weather.</h1>
             </div>
           )}
 
