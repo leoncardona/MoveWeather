@@ -4,6 +4,13 @@ const useWeatherData = () => {
   const [weatherData, setWeatherData] = useState({
     paddleSurf: [],
     hiking: [],
+    rawData: {
+      temperature: [],
+      wind: [],
+      precipitation: [],
+      waves: [],
+      dates: [],
+    },
   });
   const [loading, setLoading] = useState(false);
 
@@ -121,6 +128,7 @@ const useWeatherData = () => {
           const windData = weatherData.daily.windspeed_10m_max;
           const precipitationData = weatherData.daily.precipitation_sum;
           const wavesData = waveData.daily.wave_height_max;
+          const datesData = weatherData.daily.time;
 
           const paddleSurfScores = calculatePaddleSurfScores(temperatureData, windData, wavesData);
           const hikingScores = calculateHikingScores(temperatureData, windData, precipitationData);
@@ -128,6 +136,13 @@ const useWeatherData = () => {
           setWeatherData({
             paddleSurf: paddleSurfScores,
             hiking: hikingScores,
+            rawData: {
+              temperature: temperatureData,
+              wind: windData,
+              precipitation: precipitationData,
+              waves: wavesData,
+              dates: datesData,
+            },
           });
         } catch (error) {
           console.error("Error fetching weather data:", error);

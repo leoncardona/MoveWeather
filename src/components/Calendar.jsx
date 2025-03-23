@@ -13,6 +13,9 @@ const modes = {
       if (value >= 2) return "Poor";
       return "Avoid";
     },
+    factors: ["Temperature", "Wind Speed", "Wave Height"],
+    dataKeys: ["temperature", "wind", "waves"],
+    units: ["°C", "km/h", "m"],
   },
   hiking: {
     colorFunction: getColorForHiking,
@@ -24,6 +27,9 @@ const modes = {
       if (value >= 2) return "Challenging";
       return "Not Recommended";
     },
+    factors: ["Temperature", "Wind Speed", "Precipitation"],
+    dataKeys: ["temperature", "wind", "precipitation"],
+    units: ["°C", "km/h", "mm"],
   },
 };
 
@@ -75,9 +81,18 @@ const Calendar = ({ mode, coordinates }) => {
 
   days.forEach((date, index) => {
     const dayOfWeek = (startDayOfWeek + index) % 7;
+
+    // Get relevant weather factors based on activity
+    const factorData = modes[modeKey].dataKeys.map((key) =>
+      weatherData.rawData[key] && index < weatherData.rawData[key].length
+        ? weatherData.rawData[key][index]
+        : null
+    );
+
     currentWeek[dayOfWeek] = {
       date,
       value: index < weatherData[modeKey].length ? weatherData[modeKey][index] : null,
+      factorData: factorData,
     };
 
     if (dayOfWeek === 6 || index === days.length - 1) {
@@ -85,6 +100,12 @@ const Calendar = ({ mode, coordinates }) => {
       currentWeek = new Array(7).fill(null);
     }
   });
+
+  // Format date to get day and month
+  const formatDate = (date) => {
+    const options = { month: "short", day: "numeric" };
+    return date.toLocaleDateString(undefined, options);
+  };
 
   return (
     <div className="h-[400px]">
@@ -111,9 +132,22 @@ const Calendar = ({ mode, coordinates }) => {
                     }}
                   >
                     {day.date.getDate()}
-                    <span className="text-xs absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#131313] text-white p-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
-                      {day.value}/10 {modes[modeKey].getDescription(day.value)}
-                    </span>
+                    <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black bg-opacity-90 text-white p-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10 text-xs">
+                      <div className="font-bold text-center">
+                        {formatDate(day.date)} - {day.value}/10
+                      </div>
+                      <div className="text-center text-xs mb-1">
+                        {modes[modeKey].getDescription(day.value)}
+                      </div>
+                      <hr className="my-1 opacity-50" />
+                      {modes[modeKey].factors.map((factor, idx) => (
+                        <div key={idx} className="text-xs my-0.5">
+                          <span className="font-medium">{factor}:</span>{" "}
+                          {day.factorData[idx] !== null ? day.factorData[idx] : "N/A"}{" "}
+                          {modes[modeKey].units[idx]}
+                        </div>
+                      ))}
+                    </div>
                   </td>
                 ) : (
                   <td key={dayIndex} className="p-5 text-center">
