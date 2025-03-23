@@ -1,6 +1,6 @@
 import useWeather from "@/hooks/useWeather";
 import { getColorForScore } from "@/lib/utils";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const modes = {
   paddleSurf: {
@@ -35,21 +35,44 @@ const modes = {
 
 const Calendar = ({ mode, coordinates }) => {
   const { weatherData, loading, getWeatherData } = useWeather();
+  const [windowWidth, setWindowWidth] = useState(
+    typeof window !== "undefined" ? window.innerWidth : 1200
+  );
 
   const today = new Date();
   const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  // Short version for mobile
+  const daysOfWeekShort = ["M", "T", "W", "T", "F", "S", "S"];
 
   const modeKey = typeof mode === "object" ? mode.key : mode;
   const modeLabel =
     typeof mode === "object" ? mode.label : modeKey === "paddleSurf" ? "Paddle Surf" : "Hiking";
 
+  // Update window width on resize
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    if (typeof window !== "undefined") {
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }
+  }, []);
+
   useEffect(() => {
     getWeatherData(coordinates);
   }, [getWeatherData, coordinates]);
 
+  // Determine if we're on mobile view
+  const isMobile = windowWidth < 768;
+
+  // For mobile, we'll show fewer days
+  const daysToShow = isMobile ? 7 : 16;
+
   if (loading) {
     return (
-      <div className="h-[400px] flex items-center justify-center">
+      <div className="h-[300px] md:h-[400px] flex items-center justify-center">
         <span>Loading...</span>
       </div>
     );
@@ -63,18 +86,79 @@ const Calendar = ({ mode, coordinates }) => {
 
   if (!isDataAvailable) {
     return (
-      <div className="h-[400px] flex items-center justify-center">
+      <div className="h-[300px] md:h-[400px] flex items-center justify-center">
         <span>No {modeLabel} information available</span>
       </div>
     );
   }
 
-  const days = Array.from({ length: 16 }, (_, i) => {
+  // Create days array
+  const days = Array.from({ length: daysToShow }, (_, i) => {
     const date = new Date(today);
     date.setDate(today.getDate() + i);
     return date;
   });
 
+  // Mobile view - list format for days
+  if (isMobile) {
+    return (
+      <div className="h-full overflow-hidden">
+        <div className="grid grid-cols-1 gap-2">
+          {days.map((date, index) => {
+            const value = index < weatherData[modeKey].length ? weatherData[modeKey][index] : null;
+
+            if (value === null) return null;
+
+            // Get relevant weather factors based on activity
+            const factorData = modes[modeKey].dataKeys.map((key) =>
+              weatherData.rawData[key] && index < weatherData.rawData[key].length
+                ? weatherData.rawData[key][index]
+                : null
+            );
+
+            const dayName = daysOfWeek[(date.getDay() + 6) % 7];
+
+            return (
+              <div
+                key={index}
+                className="p-3 rounded-lg text-white font-semibold"
+                style={{
+                  backgroundColor: modes[modeKey].colorFunction(value),
+                }}
+              >
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center space-x-2">
+                    <span className="font-bold">{dayName}</span>
+                    <span>
+                      {date.getDate()}/{date.getMonth() + 1}
+                    </span>
+                  </div>
+                  <div className="flex items-center space-x-1">
+                    <span className="font-bold">{value}/10</span>
+                    <span className="text-xs">({modes[modeKey].getDescription(value)})</span>
+                  </div>
+                </div>
+
+                <div className="mt-2 grid grid-cols-3 gap-1 text-xs">
+                  {modes[modeKey].factors.map((factor, idx) => (
+                    <div key={idx} className="text-center">
+                      <div className="font-medium">{factor}</div>
+                      <div>
+                        {factorData[idx] !== null ? factorData[idx] : "N/A"}{" "}
+                        {modes[modeKey].units[idx]}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+
+  // Desktop view - calendar format
   const weeks = [];
   let currentWeek = new Array(7).fill(null);
   let startDayOfWeek = (days[0].getDay() + 6) % 7;
@@ -113,7 +197,7 @@ const Calendar = ({ mode, coordinates }) => {
         <thead>
           <tr>
             {daysOfWeek.map((day, index) => (
-              <th key={index} className="p-5 text-center">
+              <th key={index} className="p-3 md:p-5 text-center">
                 {day}
               </th>
             ))}
@@ -126,7 +210,7 @@ const Calendar = ({ mode, coordinates }) => {
                 day && day.value !== null ? (
                   <td
                     key={dayIndex}
-                    className="p-5 text-center relative group text-white font-semibold"
+                    className="p-2 md:p-5 text-center relative group text-white font-semibold text-sm md:text-base"
                     style={{
                       backgroundColor: modes[modeKey].colorFunction(day.value),
                     }}
@@ -150,7 +234,7 @@ const Calendar = ({ mode, coordinates }) => {
                     </div>
                   </td>
                 ) : (
-                  <td key={dayIndex} className="p-5 text-center">
+                  <td key={dayIndex} className="p-2 md:p-5 text-center">
                     {/* Empty cell */}
                   </td>
                 )
