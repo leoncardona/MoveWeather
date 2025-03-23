@@ -1,5 +1,5 @@
-# Fast Weather
-Weather website. Shows weather, wind and waves forecast for the next 16 days for the desired location.
+# Move Weather
+Check whether a day is good or bad for an activity based on the weather
 
 ## 🌐 Web
 https://fast-weather-one.vercel.app/
