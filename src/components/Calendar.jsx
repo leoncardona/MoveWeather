@@ -1,10 +1,10 @@
 import useWeather from "@/hooks/useWeather";
-import { getColorForPaddleSurf, getColorForHiking } from "@/lib/utils";
+import { getColorForScore } from "@/lib/utils";
 import { useEffect } from "react";
 
 const modes = {
   paddleSurf: {
-    colorFunction: getColorForPaddleSurf,
+    colorFunction: getColorForScore,
     unit: "score",
     getDescription: (value) => {
       if (value >= 8) return "Excellent";
@@ -18,7 +18,7 @@ const modes = {
     units: ["°C", "km/h", "m"],
   },
   hiking: {
-    colorFunction: getColorForHiking,
+    colorFunction: getColorForScore,
     unit: "score",
     getDescription: (value) => {
       if (value >= 8) return "Perfect Day";
