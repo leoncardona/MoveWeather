@@ -33,6 +33,10 @@ const Calendar = ({ mode, coordinates }) => {
   const today = new Date();
   const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
+  const modeKey = typeof mode === "object" ? mode.key : mode;
+  const modeLabel =
+    typeof mode === "object" ? mode.label : modeKey === "paddleSurf" ? "Paddle Surf" : "Hiking";
+
   useEffect(() => {
     getWeatherData(coordinates);
   }, [getWeatherData, coordinates]);
@@ -47,14 +51,14 @@ const Calendar = ({ mode, coordinates }) => {
 
   const isDataAvailable =
     weatherData &&
-    weatherData[mode] &&
-    weatherData[mode].length > 0 &&
-    !weatherData[mode].every((value) => value === null);
+    weatherData[modeKey] &&
+    weatherData[modeKey].length > 0 &&
+    !weatherData[modeKey].every((value) => value === null);
 
   if (!isDataAvailable) {
     return (
       <div className="h-[400px] flex items-center justify-center">
-        <span>No {mode} information available</span>
+        <span>No {modeLabel} information available</span>
       </div>
     );
   }
@@ -73,7 +77,7 @@ const Calendar = ({ mode, coordinates }) => {
     const dayOfWeek = (startDayOfWeek + index) % 7;
     currentWeek[dayOfWeek] = {
       date,
-      value: index < weatherData[mode].length ? weatherData[mode][index] : null,
+      value: index < weatherData[modeKey].length ? weatherData[modeKey][index] : null,
     };
 
     if (dayOfWeek === 6 || index === days.length - 1) {
@@ -103,12 +107,12 @@ const Calendar = ({ mode, coordinates }) => {
                     key={dayIndex}
                     className="p-5 text-center relative group text-white font-semibold"
                     style={{
-                      backgroundColor: modes[mode].colorFunction(day.value),
+                      backgroundColor: modes[modeKey].colorFunction(day.value),
                     }}
                   >
                     {day.date.getDate()}
                     <span className="text-xs absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#131313] text-white p-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
-                      {day.value}/10 {modes[mode].getDescription(day.value)}
+                      {day.value}/10 {modes[modeKey].getDescription(day.value)}
                     </span>
                   </td>
                 ) : (

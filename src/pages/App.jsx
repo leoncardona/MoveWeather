@@ -1,16 +1,16 @@
-import { CalendarModes } from "@/lib/const";
+import LocationAutocomplete from "@/components/LocationAutocomplete";
+import useLocalStorage from "@/hooks/useLocalStorage";
 import { useEffect, useState } from "react";
 import Calendar from "../components/Calendar";
 import Options from "../components/Options";
-import LocationAutocomplete from "@/components/LocationAutocomplete";
-import useLocalStorage from "@/hooks/useLocalStorage";
+import { CALENDAR_MODES } from "@/lib/const";
 
 const App = () => {
   const [coordinates, setCoordinates] = useState({
     latitude: null,
     longitude: null,
   });
-  const [currentMode, setCurrentMode] = useState(CalendarModes.paddleSurf);
+  const [currentMode, setCurrentMode] = useState(CALENDAR_MODES[0]); // Paddle Surf
   const [loading, setLoading] = useState(true);
 
   const { getStoredValue } = useLocalStorage();

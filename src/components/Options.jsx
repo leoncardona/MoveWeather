@@ -1,20 +1,17 @@
-import { capitalizeFirstLetter } from "@/lib/utils";
-import { CalendarModes } from "@/lib/const";
-import useWeather from "@/hooks/useWeather";
+import { CALENDAR_MODES } from "@/lib/const";
 
 const Options = ({ modeSetter, currentMode }) => {
-
-  const { weatherData } = useWeather();
+  const currentModeKey = typeof currentMode === "object" ? currentMode.key : currentMode;
 
   return (
     <div>
-      {Object.values(CalendarModes).map((mode) => (
+      {CALENDAR_MODES.map((mode) => (
         <button
-          key={mode}
-          className={`p-2 mr-2 rounded ${currentMode === mode ? "underline" : ""}`}
+          key={mode.key}
+          className={`p-2 mr-2 rounded ${currentModeKey === mode.key ? "underline" : ""}`}
           onClick={() => modeSetter(mode)}
         >
-          {capitalizeFirstLetter(mode)}
+          {mode.label}
         </button>
       ))}
     </div>

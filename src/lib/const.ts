@@ -1,4 +1,10 @@
-export enum CalendarModes {
-  paddleSurf = "paddleSurf",
-  hiking = "hiking",
-}
+export const CALENDAR_MODES = [
+  {
+    key: "paddleSurf",
+    label: "Paddle Surf",
+  },
+  {
+    key: "hiking",
+    label: "Hiking",
+  }
+];
