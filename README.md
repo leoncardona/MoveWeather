@@ -2,7 +2,7 @@
 Check whether a day is good or bad for an activity based on the weather
 
 ## 🌐 Web
-https://fast-weather-one.vercel.app/
+https://move-weather-one.vercel.app/
 
 ## ⚙️ Technologies
 - Astro - https://astro.build/
