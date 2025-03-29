@@ -18,13 +18,13 @@ const LocationAutocomplete = ({ minChars = 3, coordinateSetter }) => {
     coordinateSetter(coordinates);
     setStoredValue("coordinates", coordinates);
     setStoredValue("city", city.name);
-  }
+  };
 
   const handleClearInput = () => {
     setInput("");
     document.getElementById("location-input").focus();
-  }
-  
+  };
+
   useEffect(() => {
     if (input.length >= minChars) {
       getCityData(input);
@@ -39,7 +39,7 @@ const LocationAutocomplete = ({ minChars = 3, coordinateSetter }) => {
   }, []);
 
   return (
-    <section className="relative">
+    <div className="relative" style={{ position: "relative", zIndex: 9999 }}>
       <div className="flex gap-2">
         <input
           id="location-input"
@@ -57,19 +57,29 @@ const LocationAutocomplete = ({ minChars = 3, coordinateSetter }) => {
       </div>
 
       {cities.length > 0 && input.length >= minChars && (
-        <ul className="absolute left-0 right-0 mt-2 bg-white border border-gray-300 rounded max-h-60 overflow-y-auto z-10">
-          {cities.map((city, index) => (
-            <li
-              key={index}
-              className="p-2 cursor-pointer hover:bg-gray-200 text-black"
-              onClick={() => handleCitySelection(city)}
-            >
-              {city.name}
-            </li>
-          ))}
-        </ul>
+        <div
+          className="fixed inset-x-0 mx-auto"
+          style={{
+            top: "auto",
+            width: "inherit",
+            maxWidth: "inherit",
+            zIndex: 9999,
+          }}
+        >
+          <ul className="bg-white border border-gray-300 rounded max-h-60 overflow-y-auto shadow-lg">
+            {cities.map((city, index) => (
+              <li
+                key={index}
+                className="p-2 cursor-pointer hover:bg-gray-200 text-black"
+                onClick={() => handleCitySelection(city)}
+              >
+                {city.name}
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
-    </section>
+    </div>
   );
 };
 

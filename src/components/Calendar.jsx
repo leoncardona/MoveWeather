@@ -192,7 +192,7 @@ const Calendar = ({ mode, coordinates }) => {
   };
 
   return (
-    <div className="h-[400px]">
+    <div>
       <table className="w-full">
         <thead>
           <tr>

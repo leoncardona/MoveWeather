@@ -8,7 +8,7 @@ const Options = ({ modeSetter, currentMode }) => {
       {CALENDAR_MODES.map((mode) => (
         <button
           key={mode.key}
-          className={`p-2 mr-2 rounded ${currentModeKey === mode.key ? "underline" : ""}`}
+          className={`p-2 mr-2 rounded ${currentModeKey === mode.key ? "text-white" : "text-white/50"}`}
           onClick={() => modeSetter(mode)}
         >
           {mode.label}
