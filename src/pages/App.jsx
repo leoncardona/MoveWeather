@@ -23,11 +23,11 @@ const App = () => {
     setLoading(false);
   }, []);
 
-  const sectionWidth = coordinates.latitude && coordinates.longitude ? "w-[30rem]" : "w-[25rem]";
-  const sectionMarginTop = coordinates.latitude && coordinates.longitude ? "mt-28" : "mt-1";
+  const sectionWidth = coordinates.latitude && coordinates.longitude ? "w-[90vw] max-w-[30rem]" : "w-[90vw] max-w-[25rem]";
+  const sectionMarginTop = coordinates.latitude && coordinates.longitude ? "mt-16 sm:mt-28" : "mt-1";
 
   return (
-    <main>
+    <main className="px-4">
       {loading ? (
         <div className="flex flex-col items-center gap-4">
           <div className="animate-pulse text-center text-gray-500">Loading...</div>
