@@ -72,7 +72,7 @@ const Calendar = ({ mode, coordinates }) => {
 
   if (loading) {
     return (
-      <div className="h-[300px] md:h-[400px] flex items-center justify-center">
+      <div className="h-[300px] flex items-center justify-center">
         <span>Loading...</span>
       </div>
     );
@@ -86,7 +86,7 @@ const Calendar = ({ mode, coordinates }) => {
 
   if (!isDataAvailable) {
     return (
-      <div className="h-[300px] md:h-[400px] flex items-center justify-center">
+      <div className="h-[300px] flex items-center justify-center">
         <span>No {modeLabel} information available</span>
       </div>
     );
@@ -216,7 +216,8 @@ const Calendar = ({ mode, coordinates }) => {
                     }}
                   >
                     {day.date.getDate()}
-                    <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black bg-opacity-90 text-white p-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10 text-xs">
+                    {/* Tooltip that appears on hover */}
+                    <div className="hidden group-hover:block absolute left-0 top-0 -translate-y-full mt-[-10px] bg-black bg-opacity-90 text-white p-2 rounded shadow-lg z-20 min-w-[200px] pointer-events-none">
                       <div className="font-bold text-center">
                         {formatDate(day.date)} - {day.value}/10
                       </div>

@@ -39,7 +39,7 @@ const App = () => {
         <CloudRain size={48} />
       </div>
 
-      <div className="px-4 flex flex-col items-center w-full max-w-3xl relative">
+      <div className="px-4 flex flex-col items-center w-full max-w-xl relative">
         {loading ? (
           <div className="flex flex-col items-center gap-6">
             <div className="h-10 w-10 rounded-full border-4 border-white border-t-transparent animate-spin"></div>
@@ -58,7 +58,7 @@ const App = () => {
             )}
 
             <section
-              className={`flex flex-col gap-6 relative ${hasStoredPlace ? "mt-8" : "mt-4 w-2/3"}`}
+              className={`flex flex-col gap-6 w-full ${hasStoredPlace ? "mt-8" : "mt-4 w-2/3"}`}
             >
               <div
                 className="backdrop-blur-md bg-white/5 p-4 rounded-xl border border-white/10 shadow-xl relative"
