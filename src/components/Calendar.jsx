@@ -31,6 +31,34 @@ const modes = {
     dataKeys: ["temperature", "wind", "precipitation"],
     units: ["°C", "km/h", "mm"],
   },
+  fishing: {
+    colorFunction: getColorForScore,
+    unit: "score",
+    getDescription: (value) => {
+      if (value >= 8) return "Prime Fishing";
+      if (value >= 6) return "Good Conditions";
+      if (value >= 4) return "Fair";
+      if (value >= 2) return "Poor";
+      return "Not Recommended";
+    },
+    factors: ["Temperature", "Wind Speed", "Wave Height", "Precipitation"],
+    dataKeys: ["temperature", "wind", "waves", "precipitation"],
+    units: ["°C", "km/h", "m", "mm"],
+  },
+  beach: {
+    colorFunction: getColorForScore,
+    unit: "score",
+    getDescription: (value) => {
+      if (value >= 8) return "Perfect Beach Day";
+      if (value >= 6) return "Good Beach Weather";
+      if (value >= 4) return "Fair";
+      if (value >= 2) return "Not Ideal";
+      return "Not Recommended";
+    },
+    factors: ["Temperature", "Wind Speed", "Wave Height", "Precipitation"],
+    dataKeys: ["temperature", "wind", "waves", "precipitation"],
+    units: ["°C", "km/h", "m", "mm"],
+  },
 };
 
 const Calendar = ({ mode, coordinates }) => {
@@ -46,7 +74,7 @@ const Calendar = ({ mode, coordinates }) => {
 
   const modeKey = typeof mode === "object" ? mode.key : mode;
   const modeLabel =
-    typeof mode === "object" ? mode.label : modeKey === "paddleSurf" ? "Paddle Surf" : "Hiking";
+    typeof mode === "object" ? mode.label : modeKey === "paddleSurf" ? "Paddle Surf" : modeKey === "hiking" ? "Hiking" : modeKey === "fishing" ? "Fishing" : "Beach";
 
   // Update window width on resize
   useEffect(() => {
