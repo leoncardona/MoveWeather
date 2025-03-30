@@ -19,7 +19,57 @@ import App from "@/pages/App";
     />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>Move Weather</title>
+    
+    <!-- Primary Meta Tags -->
+    <title>MoveWeather - Smart Weather Predictions for Beach & Fishing Activities</title>
+    <meta name="title" content="MoveWeather - Smart Weather Predictions for Beach & Fishing Activities" />
+    <meta name="description" content="Get accurate weather forecasts optimized for beach and fishing activities. Features wave height, temperature, wind conditions, and precipitation data for the perfect outdoor experience." />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://moveweather.com/" />
+    <meta property="og:title" content="MoveWeather - Smart Weather Predictions for Beach & Fishing Activities" />
+    <meta property="og:description" content="Get accurate weather forecasts optimized for beach and fishing activities. Features wave height, temperature, wind conditions, and precipitation data for the perfect outdoor experience." />
+    <meta property="og:image" content="https://moveweather.com/logo.png" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://moveweather.com/" />
+    <meta property="twitter:title" content="MoveWeather - Smart Weather Predictions for Beach & Fishing Activities" />
+    <meta property="twitter:description" content="Get accurate weather forecasts optimized for beach and fishing activities. Features wave height, temperature, wind conditions, and precipitation data for the perfect outdoor experience." />
+    <meta property="twitter:image" content="https://moveweather.com/logo.png" />
+
+    <!-- Additional SEO Tags -->
+    <meta name="keywords" content="weather forecast, beach conditions, fishing weather, wave height, wind conditions, outdoor activities, weather app" />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="MoveWeather" />
+    <link rel="canonical" href="https://moveweather.com/" />
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "MoveWeather",
+        "description": "Smart weather predictions optimized for beach and fishing activities with wave height, temperature, wind, and precipitation data.",
+        "url": "https://moveweather.com",
+        "applicationCategory": "Weather",
+        "operatingSystem": "All",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Beach activity weather forecasts",
+          "Fishing conditions prediction",
+          "Wave height monitoring",
+          "Wind speed and direction",
+          "Temperature tracking",
+          "Precipitation forecasts"
+        ]
+      }
+    </script>
   </head>
   <body>
     <App client:load />
