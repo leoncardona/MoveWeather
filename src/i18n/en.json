@@ -1,0 +1,89 @@
+{
+  "common": {
+    "location": "Location",
+    "search": "Search for a city",
+    "temperature": "Temperature",
+    "wind": "Wind",
+    "precipitation": "Precipitation",
+    "waveHeight": "Wave Height",
+    "selectActivity": "Select Activity",
+    "loading": "Loading...",
+    "error": "Error",
+    "noResults": "No results found",
+    "findPerfectDay": "Find the perfect day for your outdoor activities",
+    "conditions": {
+      "optimal": "Optimal conditions",
+      "good": "Good conditions",
+      "moderate": "Moderate conditions",
+      "poor": "Poor conditions",
+      "dangerous": "Dangerous conditions"
+    },
+    "days": {
+      "full": {
+        "monday": "Monday",
+        "tuesday": "Tuesday",
+        "wednesday": "Wednesday",
+        "thursday": "Thursday",
+        "friday": "Friday",
+        "saturday": "Saturday",
+        "sunday": "Sunday"
+      },
+      "short": {
+        "monday": "Mon",
+        "tuesday": "Tue",
+        "wednesday": "Wed",
+        "thursday": "Thu",
+        "friday": "Fri",
+        "saturday": "Sat",
+        "sunday": "Sun"
+      },
+      "min": {
+        "monday": "M",
+        "tuesday": "T",
+        "wednesday": "W",
+        "thursday": "T",
+        "friday": "F",
+        "saturday": "S",
+        "sunday": "S"
+      }
+    }
+  },
+  "activities": {
+    "paddleSurf": {
+      "title": "Paddle Surf",
+      "optimal": "Optimal conditions for paddle surfing",
+      "good": "Good conditions for paddle surfing",
+      "moderate": "Moderate conditions, be cautious",
+      "poor": "Poor conditions, not recommended",
+      "dangerous": "Dangerous conditions, avoid paddle surfing",
+      "noData": "No Paddle Surf information available"
+    },
+    "hiking": {
+      "title": "Hiking",
+      "optimal": "Perfect weather for hiking",
+      "good": "Good hiking conditions",
+      "moderate": "Moderate conditions, prepare accordingly",
+      "poor": "Poor conditions for hiking",
+      "dangerous": "Dangerous conditions, avoid hiking",
+      "noData": "No Hiking information available"
+    },
+    "fishing": {
+      "title": "Fishing",
+      "optimal": "Perfect fishing conditions",
+      "good": "Good conditions for fishing",
+      "moderate": "Moderate fishing conditions",
+      "poor": "Poor conditions for fishing",
+      "dangerous": "Dangerous conditions, avoid fishing",
+      "noData": "No Fishing information available"
+    },
+    "beach": {
+      "title": "Beach",
+      "optimal": "Perfect beach weather",
+      "good": "Good beach conditions",
+      "moderate": "Moderate beach conditions",
+      "poor": "Poor conditions for beach activities",
+      "dangerous": "Dangerous conditions, avoid beach",
+      "noData": "No Beach information available"
+    }
+  }
+}

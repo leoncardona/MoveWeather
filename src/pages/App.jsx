@@ -5,14 +5,18 @@ import { useEffect, useState } from "react";
 import Calendar from "../components/Calendar";
 import Options from "../components/Options";
 import { Cloud, CloudRain, Sun } from "lucide-react";
+import { LanguageSwitcher } from "../components/LanguageSwitcher";
+import { TranslationProvider } from "../i18n/TranslationContext";
+import { useTranslation } from "../i18n/TranslationContext";
 
-const App = () => {
+const AppContent = () => {
   const [coordinates, setCoordinates] = useState({
     latitude: null,
     longitude: null,
   });
   const [currentMode, setCurrentMode] = useState(CALENDAR_MODES[0]); // Paddle Surf
   const [loading, setLoading] = useState(true);
+  const { t } = useTranslation();
 
   const { getStoredValue } = useLocalStorage();
 
@@ -28,6 +32,11 @@ const App = () => {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#000712] to-[#001845] text-white relative overflow-hidden flex items-center justify-center">
+      {/* Language Switcher */}
+      <div className="absolute top-4 right-4">
+        <LanguageSwitcher />
+      </div>
+
       {/* Decorative elements */}
       <div className="absolute top-20 left-10 text-blue-400/20">
         <Cloud size={64} />
@@ -43,6 +52,7 @@ const App = () => {
         {loading ? (
           <div className="flex flex-col items-center gap-6">
             <div className="h-10 w-10 rounded-full border-4 border-white border-t-transparent animate-spin"></div>
+            <p>{t('common.loading')}</p>
           </div>
         ) : (
           <>
@@ -51,9 +61,9 @@ const App = () => {
                 <h1 className="text-5xl md:text-7xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-600 tracking-tight">
                   MoveWeather
                 </h1>
-                <h2 className="text-blue-200 text-lg md:text-xl mt-3 text-center max-w-md">
-                  Find the perfect day for your outdoor activities
-                </h2>
+                <p className="text-xl text-gray-400 mt-4 text-center">
+                  {t('common.selectActivity')}
+                </p>
               </div>
             )}
 
@@ -83,6 +93,14 @@ const App = () => {
         )}
       </div>
     </main>
+  );
+};
+
+const App = () => {
+  return (
+    <TranslationProvider>
+      <AppContent />
+    </TranslationProvider>
   );
 };
 

@@ -1,0 +1,89 @@
+{
+  "common": {
+    "location": "Ubicación",
+    "search": "Buscar una ciudad",
+    "temperature": "Temperatura",
+    "wind": "Viento",
+    "precipitation": "Precipitación",
+    "waveHeight": "Altura de las olas",
+    "selectActivity": "Seleccionar actividad",
+    "loading": "Cargando...",
+    "error": "Error",
+    "noResults": "No se encontraron resultados",
+    "findPerfectDay": "Encuentra el día perfecto para tus actividades al aire libre",
+    "conditions": {
+      "optimal": "Condiciones óptimas",
+      "good": "Buenas condiciones",
+      "moderate": "Condiciones moderadas",
+      "poor": "Malas condiciones",
+      "dangerous": "Condiciones peligrosas"
+    },
+    "days": {
+      "full": {
+        "monday": "Lunes",
+        "tuesday": "Martes",
+        "wednesday": "Miércoles",
+        "thursday": "Jueves",
+        "friday": "Viernes",
+        "saturday": "Sábado",
+        "sunday": "Domingo"
+      },
+      "short": {
+        "monday": "Lun",
+        "tuesday": "Mar",
+        "wednesday": "Mié",
+        "thursday": "Jue",
+        "friday": "Vie",
+        "saturday": "Sáb",
+        "sunday": "Dom"
+      },
+      "min": {
+        "monday": "L",
+        "tuesday": "M",
+        "wednesday": "X",
+        "thursday": "J",
+        "friday": "V",
+        "saturday": "S",
+        "sunday": "D"
+      }
+    }
+  },
+  "activities": {
+    "paddleSurf": {
+      "title": "Paddle Surf",
+      "optimal": "Condiciones óptimas para paddle surf",
+      "good": "Buenas condiciones para paddle surf",
+      "moderate": "Condiciones moderadas, precaución",
+      "poor": "Malas condiciones, no recomendado",
+      "dangerous": "Condiciones peligrosas, evitar paddle surf",
+      "noData": "No hay información de Paddle Surf disponible"
+    },
+    "hiking": {
+      "title": "Senderismo",
+      "optimal": "Clima perfecto para senderismo",
+      "good": "Buenas condiciones para senderismo",
+      "moderate": "Condiciones moderadas, prepárate adecuadamente",
+      "poor": "Malas condiciones para senderismo",
+      "dangerous": "Condiciones peligrosas, evitar senderismo",
+      "noData": "No hay información de Senderismo disponible"
+    },
+    "fishing": {
+      "title": "Pesca",
+      "optimal": "Condiciones perfectas para pescar",
+      "good": "Buenas condiciones para pescar",
+      "moderate": "Condiciones moderadas para pescar",
+      "poor": "Malas condiciones para pescar",
+      "dangerous": "Condiciones peligrosas, evitar pescar",
+      "noData": "No hay información de Pesca disponible"
+    },
+    "beach": {
+      "title": "Playa",
+      "optimal": "Clima perfecto para la playa",
+      "good": "Buenas condiciones para la playa",
+      "moderate": "Condiciones moderadas para la playa",
+      "poor": "Malas condiciones para actividades de playa",
+      "dangerous": "Condiciones peligrosas, evitar la playa",
+      "noData": "No hay información de Playa disponible"
+    }
+  }
+}

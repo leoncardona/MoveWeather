@@ -1,17 +1,18 @@
 import useWeather from "@/hooks/useWeather";
 import { getColorForScore } from "@/lib/utils";
 import { useEffect, useState } from "react";
+import { useTranslation } from "../i18n/TranslationContext";
 
 const modes = {
   paddleSurf: {
     colorFunction: getColorForScore,
     unit: "score",
-    getDescription: (value) => {
-      if (value >= 8) return "Excellent";
-      if (value >= 6) return "Good";
-      if (value >= 4) return "Fair";
-      if (value >= 2) return "Poor";
-      return "Avoid";
+    getDescription: (value, t) => {
+      if (value >= 8) return t('activities.paddleSurf.optimal');
+      if (value >= 6) return t('activities.paddleSurf.good');
+      if (value >= 4) return t('activities.paddleSurf.moderate');
+      if (value >= 2) return t('activities.paddleSurf.poor');
+      return t('activities.paddleSurf.dangerous');
     },
     factors: ["Temperature", "Wind Speed", "Wave Height"],
     dataKeys: ["temperature", "wind", "waves"],
@@ -20,12 +21,12 @@ const modes = {
   hiking: {
     colorFunction: getColorForScore,
     unit: "score",
-    getDescription: (value) => {
-      if (value >= 8) return "Perfect Day";
-      if (value >= 6) return "Good Conditions";
-      if (value >= 4) return "Acceptable";
-      if (value >= 2) return "Challenging";
-      return "Not Recommended";
+    getDescription: (value, t) => {
+      if (value >= 8) return t('activities.hiking.optimal');
+      if (value >= 6) return t('activities.hiking.good');
+      if (value >= 4) return t('activities.hiking.moderate');
+      if (value >= 2) return t('activities.hiking.poor');
+      return t('activities.hiking.dangerous');
     },
     factors: ["Temperature", "Wind Speed", "Precipitation"],
     dataKeys: ["temperature", "wind", "precipitation"],
@@ -34,12 +35,12 @@ const modes = {
   fishing: {
     colorFunction: getColorForScore,
     unit: "score",
-    getDescription: (value) => {
-      if (value >= 8) return "Prime Fishing";
-      if (value >= 6) return "Good Conditions";
-      if (value >= 4) return "Fair";
-      if (value >= 2) return "Poor";
-      return "Not Recommended";
+    getDescription: (value, t) => {
+      if (value >= 8) return t('activities.fishing.optimal');
+      if (value >= 6) return t('activities.fishing.good');
+      if (value >= 4) return t('activities.fishing.moderate');
+      if (value >= 2) return t('activities.fishing.poor');
+      return t('activities.fishing.dangerous');
     },
     factors: ["Temperature", "Wind Speed", "Wave Height", "Precipitation"],
     dataKeys: ["temperature", "wind", "waves", "precipitation"],
@@ -48,12 +49,12 @@ const modes = {
   beach: {
     colorFunction: getColorForScore,
     unit: "score",
-    getDescription: (value) => {
-      if (value >= 8) return "Perfect Beach Day";
-      if (value >= 6) return "Good Beach Weather";
-      if (value >= 4) return "Fair";
-      if (value >= 2) return "Not Ideal";
-      return "Not Recommended";
+    getDescription: (value, t) => {
+      if (value >= 8) return t('activities.beach.optimal');
+      if (value >= 6) return t('activities.beach.good');
+      if (value >= 4) return t('activities.beach.moderate');
+      if (value >= 2) return t('activities.beach.poor');
+      return t('activities.beach.dangerous');
     },
     factors: ["Temperature", "Wind Speed", "Wave Height", "Precipitation"],
     dataKeys: ["temperature", "wind", "waves", "precipitation"],
@@ -66,15 +67,32 @@ const Calendar = ({ mode, coordinates }) => {
   const [windowWidth, setWindowWidth] = useState(
     typeof window !== "undefined" ? window.innerWidth : 1200
   );
+  const { t } = useTranslation();
 
   const today = new Date();
-  const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  const daysOfWeek = [
+    t('common.days.short.monday'),
+    t('common.days.short.tuesday'),
+    t('common.days.short.wednesday'),
+    t('common.days.short.thursday'),
+    t('common.days.short.friday'),
+    t('common.days.short.saturday'),
+    t('common.days.short.sunday')
+  ];
   // Short version for mobile
-  const daysOfWeekShort = ["M", "T", "W", "T", "F", "S", "S"];
+  const daysOfWeekShort = [
+    t('common.days.min.monday'),
+    t('common.days.min.tuesday'),
+    t('common.days.min.wednesday'),
+    t('common.days.min.thursday'),
+    t('common.days.min.friday'),
+    t('common.days.min.saturday'),
+    t('common.days.min.sunday')
+  ];
 
   const modeKey = typeof mode === "object" ? mode.key : mode;
   const modeLabel =
-    typeof mode === "object" ? mode.label : modeKey === "paddleSurf" ? "Paddle Surf" : modeKey === "hiking" ? "Hiking" : modeKey === "fishing" ? "Fishing" : "Beach";
+    typeof mode === "object" ? mode.label : modeKey === "paddleSurf" ? t('activities.paddleSurf.label') : modeKey === "hiking" ? t('activities.hiking.label') : modeKey === "fishing" ? t('activities.fishing.label') : t('activities.beach.label');
 
   // Update window width on resize
   useEffect(() => {
@@ -101,7 +119,7 @@ const Calendar = ({ mode, coordinates }) => {
   if (loading) {
     return (
       <div className="h-[300px] flex items-center justify-center">
-        <span>Loading...</span>
+        <span>{t('common.loading')}</span>
       </div>
     );
   }
@@ -115,7 +133,7 @@ const Calendar = ({ mode, coordinates }) => {
   if (!isDataAvailable) {
     return (
       <div className="h-[300px] flex items-center justify-center">
-        <span>No {modeLabel} information available</span>
+        <span>{t(`activities.${modeKey}.noData`)}</span>
       </div>
     );
   }
@@ -144,7 +162,7 @@ const Calendar = ({ mode, coordinates }) => {
                 : null
             );
 
-            const dayName = daysOfWeek[(date.getDay() + 6) % 7];
+            const dayName = daysOfWeekShort[(date.getDay() + 6) % 7];
 
             return (
               <div
@@ -163,7 +181,7 @@ const Calendar = ({ mode, coordinates }) => {
                   </div>
                   <div className="flex items-center space-x-1">
                     <span className="font-bold">{value}/10</span>
-                    <span className="text-xs">({modes[modeKey].getDescription(value)})</span>
+                    <span className="text-xs">{modes[modeKey].getDescription(value, t)}</span>
                   </div>
                 </div>
 
@@ -250,7 +268,7 @@ const Calendar = ({ mode, coordinates }) => {
                         {formatDate(day.date)} - {day.value}/10
                       </div>
                       <div className="text-center text-xs mb-1">
-                        {modes[modeKey].getDescription(day.value)}
+                        {modes[modeKey].getDescription(day.value, t)}
                       </div>
                       <hr className="my-1 opacity-50" />
                       {modes[modeKey].factors.map((factor, idx) => (

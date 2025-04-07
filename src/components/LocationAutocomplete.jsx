@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import useCities from "../hooks/useCities";
 import useLocalStorage from "../hooks/useLocalStorage";
+import { useTranslation } from "../i18n/TranslationContext";
 
 const LocationAutocomplete = ({ minChars = 3, coordinateSetter }) => {
   const [input, setInput] = useState("");
   const { cities, getCityData } = useCities();
-
+  const { t } = useTranslation();
   const { getStoredValue, setStoredValue } = useLocalStorage();
 
   const handleInputChange = (e) => {
@@ -45,7 +46,7 @@ const LocationAutocomplete = ({ minChars = 3, coordinateSetter }) => {
           id="location-input"
           className="p-2 border rounded w-full text-black"
           type="text"
-          placeholder="Search for a city"
+          placeholder={t('common.search')}
           value={input}
           onChange={handleInputChange}
         />
