@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { translations, defaultLanguage, supportedLanguages } from './config';
+import { createContext, useContext, useEffect, useState } from 'react';
+import { defaultLanguage, supportedLanguages, translations } from './config';
 
 const TranslationContext = createContext();
 

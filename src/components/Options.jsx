@@ -1,5 +1,5 @@
 import { CALENDAR_MODES } from "@/lib/const";
-import { useTranslation } from "../hooks/useTranslation";
+import { useTranslation } from "../i18n/TranslationContext";
 
 const Options = ({ modeSetter, currentMode }) => {
   const currentModeKey = typeof currentMode === "object" ? currentMode.key : currentMode;

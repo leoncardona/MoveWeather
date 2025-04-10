@@ -62,7 +62,7 @@ const AppContent = () => {
                   MoveWeather
                 </h1>
                 <p className="text-xl text-gray-400 mt-4 text-center">
-                  {t('common.selectActivity')}
+                  {t('common.activityForecast')}
                 </p>
               </div>
             )}

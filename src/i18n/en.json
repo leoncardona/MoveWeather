@@ -6,7 +6,7 @@
     "wind": "Wind",
     "precipitation": "Precipitation",
     "waveHeight": "Wave Height",
-    "selectActivity": "Select Activity",
+    "activityForecast": "Activity based weather",
     "loading": "Loading...",
     "error": "Error",
     "noResults": "No results found",

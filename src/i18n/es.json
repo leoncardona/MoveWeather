@@ -6,7 +6,7 @@
     "wind": "Viento",
     "precipitation": "Precipitación",
     "waveHeight": "Altura de las olas",
-    "selectActivity": "Seleccionar actividad",
+    "activityForecast": "Previsión del tiempo basada en actividades",
     "loading": "Cargando...",
     "error": "Error",
     "noResults": "No se encontraron resultados",
