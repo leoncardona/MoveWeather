@@ -1,5 +1,6 @@
 ---
 import App from "@/pages/App";
+import Analytics from '@vercel/analytics/astro'
 ---
 
 <html lang="en">
@@ -72,6 +73,7 @@ import App from "@/pages/App";
     </script>
   </head>
   <body>
+    <Analytics />
     <App client:load />
   </body>
 </html>
