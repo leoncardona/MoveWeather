@@ -33,7 +33,7 @@ const AppContent = () => {
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#000712] to-[#001845] text-white relative overflow-hidden flex items-center justify-center">
       {/* Language Switcher */}
-      <div className="absolute top-4 right-4">
+      <div className="absolute top-4 right-4" style={{ zIndex: 40 }}>
         <LanguageSwitcher />
       </div>
 
