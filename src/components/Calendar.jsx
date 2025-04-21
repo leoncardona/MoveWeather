@@ -46,6 +46,20 @@ const modes = {
     dataKeys: ["temperature", "wind", "waves", "precipitation"],
     units: ["°C", "km/h", "m", "mm"],
   },
+  surfing: {
+    colorFunction: getColorForScore,
+    unit: "score",
+    factors: ["Temperature", "Wind Speed", "Wave Height", "Precipitation"],
+    dataKeys: ["temperature", "wind", "waves", "precipitation"],
+    units: ["°C", "km/h", "m", "mm"],
+    getDescription: (value, t) => {
+      if (value >= 8) return t("activities.surfing.optimal");
+      if (value >= 6) return t("activities.surfing.good");
+      if (value >= 4) return t("activities.surfing.moderate");
+      if (value >= 2) return t("activities.surfing.poor");
+      return t("activities.surfing.dangerous");
+    },
+  },
   beach: {
     colorFunction: getColorForScore,
     unit: "score",
@@ -261,7 +275,7 @@ const Calendar = ({ mode, coordinates }) => {
                   >
                     {day.date.getDate()}
                     {/* Tooltip that appears on hover */}
-                    <div className="hidden group-hover:block absolute left-0 top-0 -translate-y-full mt-[-10px] bg-black bg-opacity-90 text-white p-2 rounded shadow-lg z-20 min-w-[200px] pointer-events-none">
+                    <div className="hidden group-hover:block absolute left-0 top-0 -translate-y-full bg-black bg-opacity-90 text-white p-2 rounded shadow-lg min-w-[200px] pointer-events-none">
                       <div className="font-bold text-center">
                         {formatDate(day.date)} - {day.value}/10
                       </div>

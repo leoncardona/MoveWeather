@@ -4,6 +4,7 @@ import {
   calculateHikingScores,
   calculateFishingScores,
   calculateBeachScores,
+  calculateSurfingScores,
 } from "../lib/utils";
 
 const useWeatherData = () => {
@@ -47,12 +48,14 @@ const useWeatherData = () => {
           const hikingScores = calculateHikingScores(temperatureData, windData, precipitationData);
           const fishingScores = calculateFishingScores(temperatureData, windData, precipitationData, wavesData);
           const beachScores = calculateBeachScores(temperatureData, windData, precipitationData, wavesData);
+          const surfingScores = calculateSurfingScores(temperatureData, windData, precipitationData, wavesData);
 
           setWeatherData({
             paddleSurf: paddleSurfScores,
             hiking: hikingScores,
             fishing: fishingScores,
             beach: beachScores,
+            surfing: surfingScores,
             rawData: {
               temperature: temperatureData,
               wind: windData,

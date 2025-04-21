@@ -1,6 +1,54 @@
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
+export const calculateSurfingScores = (tempData, windData, precipData, waveData) => {
+  if (!tempData || !windData || !precipData || !waveData) {
+    return [];
+  }
+  return tempData.map((temp, index) => {
+    const windSpeed = windData[index];
+    const precipitation = precipData[index];
+    const waveHeight = waveData[index];
+    if (temp === null || windSpeed === null || precipitation === null || waveHeight === null) {
+      return null;
+    }
+    let score = 10;
+    // Temperature scoring (15-28°C optimal)
+    if (temp < 12) {
+      score -= 2;
+    } else if (temp > 32) {
+      score -= 2;
+    }
+    // Wind scoring (low wind best)
+    if (windSpeed > 25) {
+      score -= 4;
+    } else if (windSpeed > 15) {
+      score -= 2;
+    } else if (windSpeed > 10) {
+      score -= 1;
+    }
+    // Wave height scoring (1-2.5m optimal, <0.5m poor, >3m dangerous)
+    if (waveHeight > 3) {
+      score -= 6;
+    } else if (waveHeight > 2.5) {
+      score -= 3;
+    } else if (waveHeight >= 1) {
+      // optimal
+    } else if (waveHeight < 0.5) {
+      score -= 4;
+    }
+    // Precipitation scoring
+    if (precipitation > 10) {
+      score -= 4;
+    } else if (precipitation > 5) {
+      score -= 2;
+    } else if (precipitation > 1) {
+      score -= 1;
+    }
+    return Math.max(0, Math.min(10, score));
+  });
+};
+
 export function cn(...inputs) {
   return twMerge(clsx(inputs));
 }

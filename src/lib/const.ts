@@ -11,4 +11,7 @@ export const CALENDAR_MODES = [
   {
     key: "beach",
   },
+  {
+    key: "surfing",
+  },
 ];

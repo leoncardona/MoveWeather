@@ -11,6 +11,8 @@
     "error": "Error",
     "noResults": "No se encontraron resultados",
     "findPerfectDay": "Encuentra el día perfecto para tus actividades al aire libre",
+    "selectActivity": "Seleccionar una actividad",
+    "noActivitiesFound": "No se encontraron actividades",
     "conditions": {
       "optimal": "Condiciones óptimas",
       "good": "Buenas condiciones",
@@ -84,6 +86,15 @@
       "poor": "Malas condiciones para actividades de playa",
       "dangerous": "Condiciones peligrosas, evitar la playa",
       "noData": "No hay información de Playa disponible"
+    },
+    "surfing": {
+      "title": "Surf",
+      "optimal": "¡Condiciones épicas para surfear!",
+      "good": "Buenas condiciones para surfear",
+      "moderate": "Oleaje moderado, precaución",
+      "poor": "Malas condiciones para surfear",
+      "dangerous": "Oleaje peligroso, no entrar al agua",
+      "noData": "No hay información de Surf disponible"
     }
   }
 }

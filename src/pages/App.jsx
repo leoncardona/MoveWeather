@@ -14,7 +14,7 @@ const AppContent = () => {
     latitude: null,
     longitude: null,
   });
-  const [currentMode, setCurrentMode] = useState(CALENDAR_MODES[0]); // Paddle Surf
+  const [currentMode, setCurrentMode] = useState(CALENDAR_MODES[1]); // Hiking
   const [loading, setLoading] = useState(true);
   const { t } = useTranslation();
 
@@ -78,12 +78,12 @@ const AppContent = () => {
               </div>
 
               {hasStoredPlace && (
-                <div className="space-y-6 animate-fade-in w-full relative" style={{ zIndex: 20 }}>
-                  <div className="backdrop-blur-md bg-white/5 p-4 rounded-xl border border-white/10 shadow-xl">
+                <div className="space-y-6 animate-fade-in w-full relative">
+                  <div className="backdrop-blur-md bg-white/5 p-4 rounded-xl border border-white/10 shadow-xl relative z-50">
                     <Options modeSetter={setCurrentMode} currentMode={currentMode} />
                   </div>
 
-                  <div className="backdrop-blur-md bg-white/5 p-4 rounded-xl border border-white/10 shadow-xl">
+                  <div className="backdrop-blur-md bg-white/5 p-4 rounded-xl border border-white/10 shadow-xl relative z-40">
                     <Calendar mode={currentMode} coordinates={coordinates} />
                   </div>
                 </div>
