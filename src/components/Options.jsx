@@ -53,7 +53,7 @@ const Options = ({ modeSetter, currentMode }) => {
 
       {/* Dropdown */}
       {isOpen && (
-        <div className="absolute mt-1 w-full rounded-md bg-gray-800/95 border border-white/20 shadow-lg z-[100]">
+        <div className="absolute mt-1 w-full rounded-md bg-gray-800/95 border border-white/20 shadow-lg">
           {/* Search input */}
           <div className="p-2">
             <input

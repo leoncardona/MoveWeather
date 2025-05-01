@@ -250,7 +250,7 @@ const Calendar = ({ mode, coordinates }) => {
   };
 
   return (
-    <div>
+    <div className="relative">
       <table className="w-full">
         <thead>
           <tr>
@@ -274,8 +274,8 @@ const Calendar = ({ mode, coordinates }) => {
                     }}
                   >
                     {day.date.getDate()}
-                    {/* Tooltip that appears on hover */}
-                    <div className="hidden group-hover:block absolute left-0 top-0 -translate-y-full bg-black bg-opacity-90 text-white p-2 rounded shadow-lg min-w-[200px] pointer-events-none">
+                    {/* Tooltip that appears on hover, positioned lower than before */}
+                    <div className="hidden group-hover:block absolute left-0 top-0 -translate-y-[90%] bg-black bg-opacity-90 text-white p-2 rounded shadow-lg min-w-[200px] pointer-events-none z-[100]">
                       <div className="font-bold text-center">
                         {formatDate(day.date)} - {day.value}/10
                       </div>
